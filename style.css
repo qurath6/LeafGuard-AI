@@ -1,0 +1,189 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f7faf6;
+    color: #20352a;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #23834b;
+}
+
+nav a {
+    text-decoration: none;
+    color: #344b3b;
+    margin-left: 25px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #23834b;
+}
+
+.hero {
+    min-height: 430px;
+    padding: 80px 10%;
+    background: linear-gradient(120deg, #e3f4e6, #f5fbef);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.tagline {
+    color: #23834b;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 46px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content > p:not(.tagline) {
+    color: #617366;
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+
+.hero-icon {
+    font-size: 130px;
+}
+
+.main-button {
+    display: inline-block;
+    background: #23834b;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.main-button:hover {
+    background: #176538;
+    transform: translateY(-2px);
+}
+
+.about, .detection {
+    text-align: center;
+    padding: 65px 10%;
+}
+
+.about h2, .detection h2 {
+    font-size: 30px;
+    margin-bottom: 18px;
+}
+
+.about p, .detection > p {
+    color: #657568;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: auto;
+}
+
+.detection {
+    background: #edf5ec;
+}
+
+.upload-box {
+    background: white;
+    max-width: 550px;
+    margin: 35px auto 0;
+    padding: 40px 25px;
+    border-radius: 16px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+}
+
+.upload-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.upload-box h3 {
+    margin-bottom: 10px;
+}
+
+.upload-box p {
+    color: #718074;
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+}
+
+#preview {
+    display: none;
+    max-width: 100%;
+    max-height: 260px;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+footer {
+    background: #173d28;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 8px;
+        font-size: 14px;
+    }
+
+    .hero {
+        text-align: center;
+        flex-direction: column;
+        padding: 60px 7%;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-icon {
+        font-size: 85px;
+    }
+}

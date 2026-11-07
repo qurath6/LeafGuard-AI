@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeafGuard AI | Analysis Report</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f6f2;
+    color: #26382c;
+}
+
+header {
+    background: #123d2a;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1050px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.heading {
+    margin-bottom: 25px;
+}
+
+.heading p {
+    color: #718078;
+    margin-top: 8px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.top {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 22px;
+}
+
+.leaf-image {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.status {
+    display: inline-block;
+    background: #e1f6e8;
+    color: #16743c;
+    padding: 9px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status.disease {
+    background: #ffe4e4;
+    color: #c62828;
+}
+
+h1 {
+    font-size: 29px;
+    margin: 20px 0 10px;
+}
+
+.muted {
+    color: #718078;
+    line-height: 1.7;
+}
+
+.confidence {
+    margin-top: 25px;
+}
+
+.confidence-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 13px;
+    background: #e6eee7;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    background: #269b55;
+    border-radius: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.grid .card {
+    margin-bottom: 0;
+}
+
+.card h3 {
+    color: #17623a;
+    margin-bottom: 15px;
+}
+
+.card p, .card li {
+    color: #52645a;
+    line-height: 1.8;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.treatment {
+    border-left: 5px solid #269b55;
+}
+
+.note {
+    background: #f0f7f1;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    line-height: 1.7;
+}
+
+button {
+    background: #176b3b;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #0d4e29;
+}
+
+/* Unrecognized image design */
+
+.warning-card {
+    text-align: center;
+    padding: 55px 25px;
+    border-top: 6px solid #e69b27;
+}
+
+.warning-icon {
+    font-size: 65px;
+    margin-bottom: 18px;
+}
+
+.warning-card h1 {
+    color: #c47b16;
+}
+
+.warning-card p {
+    color: #68746c;
+    line-height: 1.8;
+    margin: 15px auto;
+    max-width: 600px;
+}
+
+.warning-badge {
+    display: inline-block;
+    background: #fff0d6;
+    color: #a76508;
+    padding: 9px 17px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #819087;
+}
+
+@media(max-width:700px) {
+    .top, .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .leaf-image {
+        height: 230px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+@media print {
+    header a, button {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>🌿 LeafGuard AI</h2>
+    <a href="/">← Back to Home</a>
+</header>
+
+<div class="container">
+
+    <div class="heading">
+        <h2>Plant Health Analysis Report</h2>
+        <p>AI-powered plant disease detection and care recommendations</p>
+    </div>
+
+    <div id="reportContent">
+
+        <div class="top">
+
+            <div class="card">
+                <img id="leafPhoto" class="leaf-image" alt="Uploaded image">
+            </div>
+
+            <div class="card">
+
+                <span id="status" class="status">ANALYSIS COMPLETE</span>
+
+                <h1 id="disease">Loading...</h1>
+
+                <p class="muted" id="plant"></p>
+
+                <div class="confidence">
+
+                    <div class="confidence-line">
+                        <strong>AI Confidence</strong>
+                        <strong id="confidence">0%</strong>
+                    </div>
+
+                    <div class="progress">
+                        <span id="progressBar" style="width:0%"></span>
+                    </div>
+
+                </div>
+
+                <div class="note" id="summary"></div>
+
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="card">
+                <h3>🔍 Disease Overview</h3>
+                <p id="overview"></p>
+            </div>
+
+            <div class="card">
+                <h3>⚠️ Common Symptoms</h3>
+                <ul id="symptoms">
+                    <li>Observe unusual leaf spots or colour changes.</li>
+                    <li>Check changes in leaf shape and texture.</li>
+                </ul>
+            </div>
+
+            <div class="card treatment">
+                <h3>💊 Suggested Treatment</h3>
+                <p id="treatment"></p>
+            </div>
+
+            <div class="card">
+                <h3>🛡️ Prevention Tips</h3>
+                <ul>
+                    <li>Use healthy seeds and planting material.</li>
+                    <li>Maintain proper plant spacing.</li>
+                    <li>Avoid excessive water on leaves.</li>
+                    <li>Inspect plants regularly.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="card" id="qualityCard">
+            <h3>📊 Image Quality Information</h3>
+            <p id="quality"></p>
+
+            <div class="note">
+                AI predictions are suggestions, not a confirmed diagnosis.
+                Consult an agricultural expert before applying treatments.
+            </div>
+
+            <button onclick="window.print()">Print / Save Report</button>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 LeafGuard AI | Smart Agriculture System
+</footer>
+
+<script>
+
+const data = JSON.parse(
+    localStorage.getItem("leafReport") || "null"
+);
+
+const report = document.getElementById("reportContent");
+
+function showWarning(message, confidence = null) {
+
+    report.innerHTML = `
+        <div class="card warning-card">
+
+            <div class="warning-icon">⚠️</div>
+
+            <span class="warning-badge">
+                IMAGE NOT RECOGNIZED
+            </span>
+
+            <h1>Leaf Not Recognized</h1>
+
+            <p>${message}</p>
+
+            ${confidence !== null
+                ? `<h2>${confidence}% Confidence</h2>`
+                : ""}
+
+            <p>
+                Please upload a clear image of a
+                Tomato, Potato or Grape leaf.
+            </p>
+
+            <button onclick="location.href='/'">
+                Upload Another Image
+            </button>
+
+        </div>
+    `;
+}
+
+if (!data) {
+
+    showWarning("No analysis report was received.");
+
+}
+else if (data.status === "uncertain") {
+
+    showWarning(
+        data.advice || "The AI could not identify this image confidently.",
+        data.confidence
+    );
+
+}
+else if (data.status === "success" && data.plant && data.disease) {
+
+    document.getElementById("leafPhoto").src = data.image;
+
+    document.getElementById("plant").textContent =
+        "Plant: " + data.plant;
+
+    document.getElementById("disease").textContent =
+        data.disease;
+
+    document.getElementById("confidence").textContent =
+        data.confidence + "%";
+
+    document.getElementById("progressBar").style.width =
+        Math.min(100, Math.max(0, Number(data.confidence))) + "%";
+
+    const healthy =
+        data.disease.toLowerCase() === "healthy";
+
+    const status = document.getElementById("status");
+
+    if (healthy) {
+
+        status.textContent = "✓ HEALTHY LEAF";
+
+        document.getElementById("summary").textContent =
+            "The AI model classified this leaf as healthy. Continue regular plant care.";
+
+        document.getElementById("overview").textContent =
+            "No disease was identified among the 17 trained classes.";
+
+        document.getElementById("symptoms").innerHTML =
+            "<li>No disease symptoms identified by the model.</li><li>Continue monitoring new leaves.</li>";
+
+    } else {
+
+        status.textContent = "⚠ DISEASE DETECTED";
+
+        status.className = "status disease";
+
+        document.getElementById("progressBar").style.background =
+            "#dc4545";
+
+        document.getElementById("summary").textContent =
+            "A possible plant disease was identified. Review the recommendations below.";
+
+        document.getElementById("overview").textContent =
+            data.disease +
+            " is the most likely disease class predicted by the AI model.";
+
+    }
+
+    document.getElementById("treatment").textContent =
+        data.advice || "Consult an agricultural expert.";
+
+    document.getElementById("quality").textContent =
+        "Image blur score: " + data.blur_score +
+        " | Initial blur check passed.";
+
+}
+else {
+
+    showWarning(
+        "The uploaded image could not be identified as a supported plant leaf."
+    );
+
+}
+
+</script>
+
+</body>
+</html>

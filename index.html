@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeafGuard AI | Plant Disease Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🌿 LeafGuard AI</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#detect">Detect Disease</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <p class="tagline">SMART AGRICULTURE • AI POWERED</p>
+        <h1>Protect Your Plants<br>With Artificial Intelligence</h1>
+        <p>Upload a plant leaf image and let AI help identify possible diseases.</p>
+        <a href="#detect" class="main-button">Start Detection</a>
+    </div>
+    <div class="hero-icon">🌱</div>
+</section>
+
+<section class="about" id="about">
+    <h2>About LeafGuard AI</h2>
+    <p>
+        LeafGuard AI is an intelligent plant disease detection system.
+        It uses deep learning and image processing to analyse leaf images
+        and identify possible plant diseases.
+    </p>
+</section>
+
+<section class="detection" id="detect">
+    <h2>Plant Disease Detection</h2>
+    <p>Upload a clear picture of a plant leaf to begin.</p>
+
+    <div class="upload-box">
+        <div class="upload-icon">📷</div>
+        <h3>Upload Your Leaf Image</h3>
+        <p>Choose an image from your device</p>
+
+        <input type="file" id="leafImage" accept="image/*">
+
+        <img id="preview" alt="Leaf image preview">
+
+        <button id="analyzeButton" class="main-button">
+            Analyse Image
+        </button>
+
+        <div id="result"></div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 LeafGuard AI | AI-Powered Plant Protection</p>
+</footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
